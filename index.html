@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>youtube1</title>
+    <style type="text/css">
+    button{
+        color: #00ffff;
+        background-color: brown;
+        border-radius: 2px;
+        border-color: cyan;
+        padding: 8px;
+        display: inline;   }
+        
+
+        .status{
+            color: darkblue;
+        }
+        .bo{
+            color: chartreuse;
+        }
+
+
+
+    
+    </style>
+    <script>
+       
+
+    </script>
+</head>
+<body>
+    <div id="status">r</div>
+    <div id="stato">s</div>
+    <button onclick="login()">login</button>
+    <button onclick="post()" id="bo">post</button>
+    <button onclick="gett()">gett </button>
+    <div id="pip">d</div>
+    <script>
+
+var a= document.getElementById("status");
+       console.log(a);
+       a.innerHTML="rrrrrr";
+        document.getElementById("pip").innerHTML = "Hellot Dolly.";
+        // inizializzazione e setup facebook js sdk
+         window.fbAsyncInit = function () {
+        FB.init({
+        appId:'1081690375564213',
+        autoLogAppEvents: true,
+        xfbml: true,
+        version: 'v7.0'
+        });
+
+        FB.AppEvents.logPageView();
+
+        (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+
+
+          FB.getLoginStatus(function(response){
+            console.log('a '+response.status);
+
+            if(response.status=== 'connected'){
+                document.getElementById('status').innerHTML ='sei connesso oh';
+
+
+            }
+            else if(response.status === 'not_authorized'){
+                document.getElementById('status').innerHTML ='non sei loggato oh';
+
+            }
+            else {
+                document.getElementById('status').innerHTML ='non sei loggato su fb  oh';
+
+            }
+        });
+        console.log(FB.getLoginStatus);
+ };
+
+       
+
+
+        
+      
+        /*
+        
+       
+
+
+        document.getElementById('status').innerHTML ='non sei loggato su fb  oh';
+
+
+        
+ */
+  function login(){
+            FB.login(function(response){
+            if(response.status=== 'connected'){
+                document.getElementById('status').innerHTML ='sei connesso oh';
+
+
+            }
+            else if(response.status === 'not_authorized'){
+                document.getElementById('status').innerHTML ='non sei loggato oh';
+
+            }
+            else {
+                document.getElementById('status').innerHTML ='non sei loggato su fb  oh';
+
+            }
+        });
+        } 
+        function post(){
+            FB.api('/me/feed','post',{message: 'primo post'} ,function(response){
+                if (!response || response.error) {
+                    document.getElementById('stato').innerHTML= 'nooo/n '+response.error.message;
+                    console.log(JSON.stringify(response, undefined, 2));
+                    console.log(response.error.message);
+
+
+  } else {
+    document.getElementById('stato').innerHTML= 'id...'+response.id;
+  }
+            });
+        }
+        function gett(){
+            console.log('gett uppp');
+            FB.api(
+  '/me/permissions',
+  'GET',
+  {},
+  function(response) {
+      console.log(response);
+      document.getElementById('stato').innerHTML= 'nooo/n '+JSON.stringify(response.data, undefined, 2);
+      console.log(JSON.stringify(response.data, undefined, 2));
+      //console.log(response.data[0].permission+'  '+response.data[0].status);
+
+      // Insert your code here
+  }
+);
+            /* FB.api('/me/permissions',
+            'GET',
+            {} ,
+            function(response){
+                if (!response || response.error) {
+                    document.getElementById('stato').innerHTML= 'nooo/n '+response+response.error.message;
+                    console.log(response);
+                    console.log(response.error.message);
+                }else {
+
+                }
+            }); */
+        }
+  
+        
+         </script>
+    <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+       
+
+</body>
+</html>
